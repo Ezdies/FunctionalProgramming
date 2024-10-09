@@ -1,0 +1,115 @@
+ghci> 5
+5
+ghci> 'a'
+'a'
+ghci> "abc"
+"abc"
+ghci> True
+True
+ghci> :type True
+True :: Bool
+ghci> t 'a'
+
+<interactive>:6:1: error: Variable not in scope: t :: Char -> t
+ghci> :t 'a'
+'a' :: Char
+ghci> :t 4.5
+4.5 :: Fractional a => a
+ghci> :t "abcd"
+"abcd" :: String
+
+:l <nazwa pliku> załadowanie pliku do interpretera ghci
+Potem możemy dawać nazwę funkcji i jej wartości
+
+ghci> :l program.hs 
+[1 of 2] Compiling Main             ( program.hs, interpreted )
+Ok, one module loaded.
+ghci> s 5
+6
+ghci> add 5 6
+11
+
+ghci> :t s 5
+s 5 :: Num a => a - jeśli a należy do klasy, a to s będzie z tej samej klasy
+ghci> :t s
+s :: Num a => a -> a - jeśli a jest typu number, to typ zwracany też będzie tego typu
+
+ghci> :t add
+add :: Num a => a -> a -> a - funkcja dla dwóch typów zwraca trzeci typ
+
+ghci> (add :: (Int -> (Int -> Int))) 4 5
+9
+ghci> map s [2,3,4,5]
+[3,4,5,6]
+ghci> map (add 5) [2,3,4,5]
+[7,8,9,10]
+Map wywołuje tę funkcję dla każdego elementu liczby
+
+ghci> (+) 4 5
+9
+ghci> 3 `add` 5
+8
+ghci> map (+ 5) [2,3,4,5]
+[7,8,9,10]
+ghci> map (5 +) [2,3,4,5]
+[7,8,9,10]
+ghci> map (/ 5) [2,3,4,5]
+[0.4,0.6,0.8,1.0]
+ghci> map (5 /) [2,3,4,5]
+[2.5,1.6666666666666667,1.25,1.0]
+Rózne wyniki, bo dodawanie jest przemienne, a dzielenie nie
+`ciapki` robią z funkcji operator infixowy
+
+ghci> :l program.hs 
+[1 of 2] Compiling Main             ( program.hs, interpreted )
+Ok, one module loaded.
+ghci> map (sub 10) [100, 200, 300]
+[-90,-190,-290]
+ghci> map (10 `sub`) [100, 200, 300]
+[-90,-190,-290]
+
+Teraz przez te ciapki zmieniliśmy notację na infixową, dzięki czemu zmieniła się kolejność odejmowania
+(+) dodaje do siebie dwie kolejne
+
+ghci> map((-)7) [4,5,6]
+[3,2,1]
+ghci> [4,5,6,7]
+[4,5,6,7]
+
+Lista to jest struktura, która może być pusta lub jest to para: głowa i ogon
+
+
+
+//dopisać
+ghci> [4,5,6,7]
+[4,5,6,7]
+ghci> []
+[]
+ghci> 5 : []
+[5]
+ghci> 4 : (5 : (6 : (7:[])))
+[4,5,6,7]
+ghci> 4 : (5 : [6, 7])
+
+
+s' 0 = 0
+s' x = 1
+
+dla 0 zwracamy 0, dla reszty 1
+
+f 0 0 = 0
+f x 0 = x + 5
+f 1 y = y + 10
+f x y = x + y
+
+To takie jak w matematyce związane klamerką, jest to dopasowywanie wzorca
+
+ghci> head' [1,4,6]
+1
+Dostęp do głowy jest w złożoności stałej, a dostęp do ogona jest w złożoności o(n)
+
+
+length' [] = 0
+length' (_:t) = 1 + length' t -- bo liczymy ile jest tam ogonów w tej funkcji i dodajemy 1 za głowę
+ghci> length' [2,3,4,5,6]
+5
