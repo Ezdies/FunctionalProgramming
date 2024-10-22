@@ -1,0 +1,33 @@
+-- konwersja na napis
+--show 5
+--"abc" ++ "def"
+
+-- zamias x != 5
+--x /= 5
+
+--has_3_elements (_:_:_:_) = True
+has_3_elements _ = False
+
+f 0 = 0
+f 1 = 3
+f _ = 5
+
+f' x = case x of
+    0 -> 0
+    1 -> 3
+    _ -> 5
+
+f'' x = (case x of
+    0 -> 0
+    1 -> 3
+    _ -> 5) + 1
+
+g 0 _ = 0
+g _ 0 = 1
+g _ _ = 2
+
+addOne = \x -> x + 1
+
+--compose f g = (\x -> f (g x))
+compose f g x = f (g x)
+
